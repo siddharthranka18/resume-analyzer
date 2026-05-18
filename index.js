@@ -6,6 +6,8 @@ dotenv.config();
 const app = express();
 app.use(cors());
 app.use(express.json());
+const analyzeRoutes = require('./src/routes/analyzeRoutes');
+app.use('/api/analyze', analyzeRoutes);
 mongoose.connect(process.env.MONGO_URI)
 .then(()=>console.log('MongoDb connected'))
 .catch((err)=>console.log('MongoDb error:',err));
