@@ -29,6 +29,8 @@ router.post('/parse', upload.single('resume'), async (req, res) => {
   }
 });
 
+const Analysis = require('../models/Analysis');
+
 router.post('/analyze', upload.single('resume'), async (req, res) => {
   try {
     if (!req.file) {
@@ -46,8 +48,15 @@ router.post('/analyze', upload.single('resume'), async (req, res) => {
       Promise.resolve(matchSkills(resumeText, jobDescription))
     ]);
 
+    const saved = await Analysis.create({
+      filename: req.file.originalname,
+      aiAnalysis,
+      skillMatch
+    });
+
     res.json({
       success: true,
+      id: saved._id,
       aiAnalysis,
       skillMatch
     });
@@ -57,4 +66,12 @@ router.post('/analyze', upload.single('resume'), async (req, res) => {
   }
 });
 
+router.get('/history', async (req, res) => {
+  try {
+    const analyses = await Analysis.find().sort({ createdAt: -1 });
+    res.json({ success: true, analyses });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
 module.exports = router;
