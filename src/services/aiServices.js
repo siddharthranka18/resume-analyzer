@@ -33,7 +33,7 @@ ${jobDescription}
       { role: 'system', content: 'You are an expert HR analyst. Always respond with valid JSON only.' },
       { role: 'user', content: prompt }
     ],
-    temperature: 0.3
+    temperature: 0.3 
   });
 
   const raw = response.choices[0].message.content;
