@@ -9,6 +9,10 @@ app.use(cors({
   origin: ['https://resume-analyzer-lovat-delta.vercel.app', 'http://localhost:5173'],
   methods: ['GET', 'POST']
 }))
+const fs = require('fs')
+if (!fs.existsSync('uploads')) {
+  fs.mkdirSync('uploads')
+}
 app.use(express.json());
 const analyzeRoutes = require('./src/routes/analyzeRoutes');
 app.use('/api/analyze', analyzeRoutes);
