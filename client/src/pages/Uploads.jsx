@@ -22,7 +22,7 @@ export default function Upload({ setAnalysisData }) {
       const formData = new FormData()
       formData.append('resume', file)
       formData.append('jobDescription', jd)
-      const res = await axios.post('/api/analyze/analyze', formData)
+     const res = await axios.post(`${BASE_URL}/api/analyze/analyze`, formData)
       setAnalysisData(res.data)
       navigate('/results')
     } catch (err) {
