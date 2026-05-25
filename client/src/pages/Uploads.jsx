@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import './Uploads.css'
-
+const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
 export default function Upload({ setAnalysisData }) {
   const [file, setFile] = useState(null)
   const [jd, setJd] = useState('')
